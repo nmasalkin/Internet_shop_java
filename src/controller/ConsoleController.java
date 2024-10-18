@@ -53,7 +53,7 @@ public class ConsoleController {
                     customerController.add();
                     break;
                 case 2:
-                    customerController.get();
+                    customerController.getById();
                     break;
                 case 3:
                     customerController.update();
@@ -88,7 +88,7 @@ public class ConsoleController {
                     orderController.add();
                     break;
                 case 2:
-                    orderController.get();
+                    orderController.getById();
                     break;
                 case 3:
                     orderController.update();
@@ -123,7 +123,7 @@ public class ConsoleController {
                     productController.add();
                     break;
                 case 2:
-                    productController.get();
+                    productController.getById();
                     break;
                 case 3:
                     productController.update();

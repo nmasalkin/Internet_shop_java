@@ -4,25 +4,26 @@ import model.Customer;
 import repository.CustomerRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CustomerService {
 
     private CustomerRepository customerRepository = new CustomerRepository();
 
-    public void add(Customer customer) {
-        customerRepository.add(customer);
+    public Customer add(Customer customer) {
+        return customerRepository.add(customer);
     }
 
-    public Customer get(int id) {
-        return customerRepository.get(id);
+    public Optional<Customer> getById(int id) {
+        return customerRepository.getById(id);
     }
 
-    public void update(int id, Customer newCustomer) {
-        customerRepository.update(id, newCustomer);
+    public Customer update(Customer newCustomer) {
+        return customerRepository.update(newCustomer);
     }
 
-    public void delete(int id) {
-        customerRepository.delete(id);
+    public Optional<Customer> delete(Customer customer) {
+        return customerRepository.delete(customer);
     }
 
     public List<Customer> getAll() {

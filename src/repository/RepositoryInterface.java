@@ -1,16 +1,17 @@
 package repository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RepositoryInterface<T> {
 
-    void add(T object);
+    T add(T object);
 
-    T get(int id);
+    Optional<T> getById(int id);
 
-    void update(int id, T object);
+    T update(T object);
 
-    void delete(int id);
+    Optional<T> delete(T object);
 
     List<T> getAll();
 }

@@ -4,25 +4,26 @@ import model.Product;
 import repository.ProductRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ProductService {
 
     private ProductRepository productRepository = new ProductRepository();
 
-    public void add(Product product) {
-        productRepository.add(product);
+    public Product add(Product product) {
+        return productRepository.add(product);
     }
 
-    public Product get(int id) {
-        return productRepository.get(id);
+    public Optional<Product> getById(int id) {
+        return productRepository.getById(id);
     }
 
-    public void update(int id, Product newProduct) {
-        productRepository.update(id, newProduct);
+    public Product update(Product newProduct) {
+        return productRepository.update(newProduct);
     }
 
-    public void delete(int id) {
-        productRepository.delete(id);
+    public Optional<Product> delete(Product product) {
+        return productRepository.delete(product);
     }
 
     public List<Product> getAll() {

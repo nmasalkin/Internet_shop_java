@@ -4,6 +4,7 @@ import model.Order;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class OrderRepository implements RepositoryInterface<Order> {
 
@@ -13,35 +14,44 @@ public class OrderRepository implements RepositoryInterface<Order> {
 
 
     @Override
-    public void add(Order order) {
+    public Order add(Order order) {
         order.setId(id++);
         orders.add(order);
+        return order;
     }
 
     @Override
-    public Order get(int id) {
+    public Optional<Order> getById(int id) {
         for (Order order : orders) {
             if (order.getId() == id) {
-                return order;
+                return Optional.of(order);
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Order update(Order newOrder) {
+        if (newOrder.getId() == 0) {
+            return null;
+        } else {
+            for (Order order : orders) {
+                if (order.getId() == newOrder.getId()) {
+                    orders.set(orders.indexOf(order), newOrder);
+                    return newOrder;
+                }
             }
         }
         return null;
     }
 
     @Override
-    public void update(int id, Order newOrder) {
-        for (Order order : orders) {
-            if (order.getId() == id) {
-                newOrder.setId(order.getId());
-                orders.set(orders.indexOf(order), newOrder);
-                break;
-            }
+    public Optional<Order> delete(Order order) {
+        if (orders.contains(order)) {
+            orders.remove(order);
+            return Optional.of(order);
         }
-    }
-
-    @Override
-    public void delete(int id) {
-        orders.remove(get(id));
+        return Optional.empty();
     }
 
     @Override

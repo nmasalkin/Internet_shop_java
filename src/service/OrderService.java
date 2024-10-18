@@ -4,25 +4,26 @@ import model.Order;
 import repository.OrderRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class OrderService {
 
     private OrderRepository orderRepository = new OrderRepository();
 
-    public void add(Order order){
-        orderRepository.add(order);
+    public Order add(Order order){
+        return orderRepository.add(order);
     }
 
-    public Order get(int id){
-        return orderRepository.get(id);
+    public Optional<Order> getById(int id){
+        return orderRepository.getById(id);
     }
 
-    public void update(int id, Order newOrder){
-        orderRepository.update(id, newOrder);
+    public Order update(Order newOrder){
+        return orderRepository.update(newOrder);
     }
 
-    public void delete(int id){
-        orderRepository.delete(id);
+    public Optional<Order> delete(Order order){
+         return orderRepository.delete(order);
     }
 
     public List<Order> getAll(){

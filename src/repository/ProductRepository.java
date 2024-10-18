@@ -4,6 +4,7 @@ import model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductRepository implements RepositoryInterface<Product> {
 
@@ -12,35 +13,45 @@ public class ProductRepository implements RepositoryInterface<Product> {
     private static int id = 1;
 
     @Override
-    public void add(Product product) {
+    public Product add(Product product) {
         product.setId(id++);
         products.add(product);
+        return product;
     }
 
     @Override
-    public Product get(int id) {
+    public Optional<Product> getById(int id) {
         for (Product product : products) {
             if (product.getId() == id) {
-                return product;
+                return Optional.of(product);
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Product update(Product newProduct) {
+        if (newProduct.getId() == 0) {
+            return null;
+        } else {
+            for (Product product : products) {
+                if (product.getId() == newProduct.getId()) {
+                    products.set(products.indexOf(product), newProduct);
+                    return newProduct;
+                }
             }
         }
         return null;
     }
 
-    @Override
-    public void update(int id, Product newProduct) {
-        for (Product product : products) {
-            if (product.getId() == id) {
-                newProduct.setId(product.getId());
-                products.set(products.indexOf(product), newProduct);
-                break;
-            }
-        }
-    }
 
     @Override
-    public void delete(int id) {
-        products.remove(get(id));
+    public Optional<Product> delete(Product product) {
+        if (products.contains(product)) {
+            products.remove(product);
+            return Optional.of(product);
+        }
+        return Optional.empty();
     }
 
     @Override

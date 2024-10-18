@@ -4,6 +4,7 @@ import model.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CustomerRepository implements RepositoryInterface<Customer> {
 
@@ -12,35 +13,44 @@ public class CustomerRepository implements RepositoryInterface<Customer> {
     private static int id = 1;
 
     @Override
-    public void add(Customer customer) {
+    public Customer add(Customer customer) {
         customer.setId(id++);
         customers.add(customer);
+        return customer;
     }
 
     @Override
-    public Customer get(int id) {
+    public Optional<Customer> getById(int id) {
         for (Customer customer : customers) {
             if (customer.getId() == id) {
-                return customer;
+                return Optional.of(customer);
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Customer update(Customer newCustomer) {
+        if (newCustomer.getId() == 0) {
+            return null;
+        } else {
+            for (Customer customer : customers) {
+                if (customer.getId() == newCustomer.getId()) {
+                    customers.set(customers.indexOf(customer), newCustomer);
+                    return newCustomer;
+                }
             }
         }
         return null;
     }
 
     @Override
-    public void update(int id, Customer newCustomer) {
-        for (Customer customer : customers) {
-            if (customer.getId() == id) {
-                newCustomer.setId(customer.getId());
-                customers.set(customers.indexOf(customer), newCustomer);
-                break;
-            }
+    public Optional<Customer> delete(Customer customer) {
+        if (customers.contains(customer)) {
+            customers.remove(customer);
+            return Optional.of(customer);
         }
-    }
-
-    @Override
-    public void delete(int id) {
-        customers.remove(get(id));
+        return Optional.empty();
     }
 
     @Override

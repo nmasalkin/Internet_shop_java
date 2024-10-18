@@ -41,9 +41,9 @@ public class Order {
 
     @Override
     public String toString() {
-        String order = "ID заказа = " + id +
-                       "\nЗаказчик = " + customer +
-                       "\nТовары в заказе = ";
+        String order = "ID заказа: " + id +
+                       "\nЗаказчик: " + customer +
+                       "\nТовары в заказе: ";
         for (Product product : products) {
             order = order + product + "\n" + " ".repeat(18);
         }
